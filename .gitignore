@@ -1,0 +1,44 @@
+# =====================================================================
+#  Dépôt de publication — il ne contient que du Markdown.
+#  Ce fichier est une ceinture par-dessus les bretelles : la protection
+#  principale est la liste blanche qui a construit ce dossier.
+# =====================================================================
+
+# Secrets — non négociable
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.*
+credentials*.json
+*_secret*
+*api_key*
+
+# Rien de généré, de local ou de personnel n'entre ici
+logs/
+dist/
+build/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Outils locaux
+.claude/
+.vscode/
+.idea/
+
+# Source maps — vecteur de fuite de code source
+*.map
+
+# Système
+Thumbs.db
+desktop.ini
+.DS_Store
+*.tmp
+*.bak
+~$*

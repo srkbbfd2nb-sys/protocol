@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: "Protocole LAB — discipline de cognition appliquée à l'interaction"
+message: "Si vous utilisez ce protocole, merci de le citer."
+type: software
+authors:
+  - name: "Lazerr"
+repository-code: "https://github.com/srkbbfd2nb-sys/protocol"
+abstract: >-
+  Protocole de gouvernance cognitive appliqué à l'interaction avec un modèle de
+  langage. Trois pôles ordonnés — épistémique, souveraineté cognitive,
+  production — où la souveraineté conditionne la production. 8 invariants,
+  5 méta-invariants, 3 principes architecturaux, 20 modules couplés en graphe
+  typé, et un bloc d'audit JSON dont plusieurs cohérences sont vérifiables hors
+  du modèle. Livré comme Agent Skill installable.
+keywords:
+  - cognitive governance
+  - large language models
+  - agent skill
+  - epistemic rigor
+  - auditability
+  - prompt engineering
+license: MIT
+version: "8.0.0"
