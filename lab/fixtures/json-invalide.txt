@@ -1,0 +1,5 @@
+Le bloc est délimité mais son contenu n'est pas du JSON valide.
+
+===== LAB AUDIT JSON =====
+{ "signature_mamd": { "intention": "x", , } manquant
+===== FIN LAB AUDIT JSON =====

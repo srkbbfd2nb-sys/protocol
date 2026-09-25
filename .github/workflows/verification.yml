@@ -1,0 +1,60 @@
+name: vérification
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  instrument:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer pytest
+        run: pip install --quiet pytest
+
+      - name: Tests de l'instrument
+        run: python -m pytest lab/tests/ -q
+
+      - name: Le vérificateur accepte un bloc conforme
+        run: python lab/audit_v8.py --input-file lab/fixtures/conforme.txt
+
+      - name: Le vérificateur refuse une cohérence violée
+        run: |
+          if python lab/audit_v8.py --input-file lab/fixtures/coherence-violee.txt; then
+            echo "ÉCHEC — une cohérence violée a été acceptée"; exit 1
+          fi
+
+      - name: Le vérificateur signale un bloc absent
+        run: |
+          python lab/audit_v8.py --input-file lab/fixtures/bloc-absent.txt || code=$?
+          if [ "${code:-0}" -ne 2 ]; then echo "ÉCHEC — code attendu 2, obtenu ${code:-0}"; exit 1; fi
+
+  structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dualité des couches — un module, une fiche de détail
+        run: |
+          m=$(ls protocole/actif/*.md | grep -vE 'README|emission' | wc -l)
+          d=$(ls protocole/archive/*_detail.md | wc -l)
+          echo "modules=$m détails=$d"
+          [ "$m" -eq "$d" ] || { echo "ÉCHEC — rupture de la dualité S4"; exit 1; }
+
+      - name: Le paquet Skill ne diverge pas de la source
+        run: |
+          for f in protocole/actif/*.md; do
+            b=$(basename "$f"); s="skill/references/$b"
+            [ "$b" = "README.md" ] && continue
+            cmp -s "$f" "$s" || { echo "ÉCHEC — $b diffère entre protocole/ et skill/"; exit 1; }
+          done
+          echo "les deux copies sont identiques"
+
+      - name: Le délimiteur du template et celui du vérificateur concordent
+        run: |
+          grep -q "===== LAB AUDIT JSON =====" protocole/actif/emission_audit_v8.md
+          grep -q "LAB|TJ" lab/audit/v8/json_extractor.py

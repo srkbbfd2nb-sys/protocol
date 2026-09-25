@@ -1,0 +1,18 @@
+Une réponse quelconque produite sous protocole, suivie de son bloc d'audit.
+
+===== TJ AUDIT JSON =====
+{"signature_mamd":{"intention":"arbitrer entre deux options de stockage","domaine":"architecture",
+"nature_epistemique":"mixte","complexite":"moderee","engagement":"collaboratif",
+"risques":["choix peu reversible"],"contexte_session":"premiere demande",
+"signaux_delegation":{"lexical":"non","syntaxique":"non","intentionnel":"non"}},
+"capacites":{"verifiees":[],"declarees":[],"absentes":[],"replis":[],"garde_fous_armes":[]},
+"activations_aca":{"actives":["MEDA","MECA"],"non_activees_malgre_signal":[],"commandes":[],"etat":"actif"},
+"gates":{"lyra_p0":"passe","f04_mode":"aucun","ordre_2_3":{"securise":true,"viole":false}},
+"meca":{"axes":{"clarte":0.91,"valeur_cognitive":0.88,"coherence":0.93,"robustesse_ab":0.85,"integrite":0.94},
+"score_global":0.90,"mode":"informe",
+"conformite_reflexive":{"pa1":"ok","pa2":"ok","pa3":"ok"},
+"coherence_mamd":{"intention":"ok","nature_feop":"ok","complexite":"ok","risques":"ok","contexte":"ok"},
+"authenticite_alternatives":{"presentees":3,"survivantes":2,"leurres":1,"effondrement":false,
+"refutation_demontree":false,"amorce_appropriee":true}},
+"reflexivite_i07":{"coherence_cycle":"conforme","auto_portage":"ok","cohabitation":"ok","derive":[]}}
+===== FIN TJ AUDIT JSON =====

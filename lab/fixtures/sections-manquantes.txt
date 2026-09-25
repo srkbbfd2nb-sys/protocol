@@ -1,0 +1,10 @@
+Bloc syntaxiquement valide, mais amputé : deux sections manquent et meca est incomplet.
+
+===== LAB AUDIT JSON =====
+{"signature_mamd":{"intention":"x","domaine":"x","nature_epistemique":"F","complexite":"faible",
+"engagement":"collaboratif","risques":[],"contexte_session":"x",
+"signaux_delegation":{"lexical":"non","syntaxique":"non","intentionnel":"non"}},
+"gates":{"lyra_p0":"passe","f04_mode":"aucun","ordre_2_3":{"securise":true,"viole":false}},
+"meca":{"axes":{"clarte":0.9,"valeur_cognitive":0.9,"coherence":0.9,"robustesse_ab":0.9,"integrite":0.9},
+"score_global":0.9,"mode":"informe"}}
+===== FIN LAB AUDIT JSON =====

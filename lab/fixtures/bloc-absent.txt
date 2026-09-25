@@ -1,0 +1,2 @@
+Une réponse produite sans protocole : aucun bloc d'audit n'est émis.
+Le vérificateur doit le dire, pas l'inventer.
