@@ -10,7 +10,7 @@ Le dépôt porte les deux moitiés : **le protocole**, qui affirme, et **l'instr
 python lab/audit_v8.py --input-file reponse.txt
 ```
 
-Colle une réponse produite sous protocole dans un fichier, lance cette commande, obtiens un
+Colle simplement entre "..." une réponse produite sous protocole dans un fichier, lance cette commande, obtiens un
 verdict. Pas de clé, pas de compte, pas de serveur, aucune dépendance. C'est ce qui sépare un
 document d'un objet vérifiable.
 
