@@ -48,11 +48,11 @@ Lyra → {F-04, F-01, MECA, MEDA, EXT-01, EXT-02} `04_lyra:219` (alimente) · F-
 
 ## 2 · Rétroactions (cartographiées pour la 1re fois)
 
-F-04→MAMD (re-signature) · MECA→OFI→production (relance) · A2→INV.5 (arrêt) · ③→① (réexamen). Réf. détaillées dans `AX2_COUPLAGES §5`.
+F-04→MAMD (re-signature) · MECA→OFI→production (relance) · A2→INV.5 (arrêt) · ③→① (réexamen) · capacité défaillante→SONDE (re-sonde). Réf. détaillées dans `AX2_COUPLAGES §5`.
 
 ## 3 · Matrice — état d’honnêteté (résout A2)
 
-342 couplages possibles (19×19 − diagonale). Documentés : ~26 legacy + ~34 typés cette passe. **Reste (~280-300) = `?` (non documenté)**, PAS `L` vérifié. La matrice legacy se présentait comme complète en documentant <8 % — conflation corrigée.
+380 couplages possibles (20×20 − diagonale ; 20 nœuds depuis l'ajout de SONDE). Documentés : ~26 legacy + ~34 typés cette passe. **Reste (~280-300) = `?` (non documenté)**, PAS `L` vérifié. La matrice legacy se présentait comme complète en documentant <8 % — conflation corrigée.
 
 ## 4 · Anomalies Ax2 — résolution dans ce module
 

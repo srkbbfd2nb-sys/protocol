@@ -7,11 +7,20 @@ Legacy : « Profils Claude 4.6 & Dégradation Gracieuse » + noms en dur (Opus 4
 
 **Règle de récence** (énoncé canonique → Noyau actif) : toute cible non explicitement versionnée = la version la plus récente disponible au moment de l'usage. Les snapshots ci-dessous sont *informatifs et datés*, remplacés au fil des générations — jamais des dépendances (PA.1).
 
-### Snapshot daté — génération courante (juin 2026)
-- **Claude** : génération **5** — *Fable 5* (classe Mythos, la plus capable) / **Opus 4.8** (dernière Opus).
-- **Choix opérationnel du projet** : **Opus 4.8** — le déploiement de Fable 5 est complexe ; Opus 4.8 est la cible d'exécution par défaut (sauf indication précise contraire).
-- **Palier estimé** : A (les deux). À confirmer par Test Rapide lors du premier déploiement V.8 (étape Dep).
-- *Ce snapshot remplace toute mention nominale antérieure et sera remplacé par le suivant.*
+### Pas de snapshot nominatif — application de la règle à elle-même
+
+Aucune liste de modèles n'est maintenue ici. Un instantané de génération est faux quelques mois
+après son écriture, et le maintenir contredirait la règle énoncée juste au-dessus : le classement
+se fait **par palier, jamais par nom**.
+
+La procédure est donc la seule information stable : au premier déploiement dans un environnement
+donné, le **Test Rapide** classe la cible en palier A, B ou C ; le verdict est daté et vaut pour
+cet environnement. Les noms de modèles n'apparaissent que dans le rapport de test, jamais dans le
+protocole.
+
+*(Finding relevé à la revue à contexte frais du 25/09/2026 : la version antérieure de cette section
+portait un snapshot nominatif daté, en contradiction directe avec la Règle de récence qu'elle
+énonçait deux lignes plus haut — dans le module même qui gouverne la compatibilité modèle.)*
 
 ## 2 · G-LAB — gouvernabilité
 4 Métriques de Gouvernabilité → Score G-LAB (bidimensionnel par profil testé) → seuils GO ≥ 0.80 / CONDITIONNEL ≥ 0.60 / NO-GO. **Protocole de Test Rapide** : batterie comportementale sans accès aux poids (compatible PA.1 — aucun outil externe requis).

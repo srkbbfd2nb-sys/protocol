@@ -7,7 +7,7 @@
 
 ## Chaîne canonique d’un cycle (vue dynamique — le cœur runtime)
 
-`MAMD signe → ACA active → [ Lyra gate P0 · MEDA route · modules opèrent · PADC-IA/GDA authentifie → F-04 expose ] → MECA audite → I-07 réfléchit → rétroactions`
+`SONDE établit → MAMD signe → ACA active → [ Lyra gate P0 · MEDA route · modules opèrent · PADC-IA/GDA authentifie → F-04 expose ] → MECA audite → I-07 réfléchit → rétroactions`
 
 ## Points de ré-entrée (« revenir, repartir »)
 
@@ -15,11 +15,15 @@
 - **MECA < seuil → OFI** : relance de la production.
 - **A2 (détection 4 axes) → INV.5** : arrêt bruyant, mobilisable à tout moment.
 - **③ → ①** : angles morts révélés par la production → réexamen épistémique.
+- **capacité défaillante en cours de cycle → SONDE** : re-sonde de l'environnement.
 
 ## Couplages structurels (F) — le squelette
 
 |Couplage    |Int.|Nature              |Note                                                                                                                  |
 |------------|----|--------------------|----------------------------------------------------------------------------------------------------------------------|
+|SONDE → MAMD|F   |active              |l'environnement est établi *avant* la signature — ouverture de cycle                                                  |
+|SONDE → MEDA|F   |alimente            |router vers une capacité `absente` est une erreur de type                                                             |
+|SONDE → EXT-02|F |borne               |une action technique ne peut engager qu'une capacité présente à la carte                                              |
 |ACA ← MAMD  |F   |alimente            |ACA consomme la signature (pattern canonique D4)                                                                      |
 |I-07 ↔ Noyau|F   |audite / conditionne|**Terminateur** : la revue I-07 est consultative ; l’acte de modification (Noyau/humain) tranche → pas de cycle infini|
 |MAMD → MEDA |F   |alimente            |pré-MEDA, prérequis du routage                                                                                        |

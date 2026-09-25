@@ -1,20 +1,23 @@
-# tj_v8/actif/ — Couche ACTIVE (runtime)
+# Couche ACTIVE (runtime)
 
-> Décision **S4-C** (dualité actif/archive). Voir `FONDATIONS_V8.md` §S4.
+> Dualité actif / archive. C'est le mécanisme de compacité du protocole : on ne réduit *rien*,
+> on réduit seulement ce que le modèle **porte en contexte**.
 
-**Rôle** : ce dossier contient la **couche chargée en contexte** (system prompt runtime).
-Porteur minimal seulement :
-- définition (S0 v2.1) · méta-principe Conservation du Champ · les 3 pôles (S1)
-- invariants révisés (S2) · schéma d'activation AMORCE→PROCESSUS→SORTIE (S3)
-- **logique-cœur** des modules (pas leur documentation exhaustive)
+**Rôle** — ce dossier contient la couche **chargée en contexte** : ce qui est réellement présent
+quand le modèle travaille. Porteur minimal, et rien de plus :
 
-**Format** : **Markdown** (couche active = MD ; l'HTML est réservé à l'archive humaine).
+- la définition, le méta-principe *Conservation du Champ*, les 3 pôles et leur ordonnancement
+- les invariants, les méta-invariants et les principes architecturaux
+- le schéma d'activation **AMORCE → PROCESSUS → SORTIE** de chaque module
+- la **logique-cœur** des modules — pas leur documentation exhaustive
 
-**Plancher anti-« oubli de soi » (S4-D)** : toujours conserver ici le *pourquoi* compressé
-(méta-principe + 3 pôles), pas seulement les règles, pour garder l'auto-cohérence.
+**Format** : Markdown.
 
-**Construction** : la ligne actif/archive précise se trace pendant **M0** (module par module).
-Statut actuel : **EN CONSTRUCTION** (dossier amorcé, contenu à produire phase M0).
+**Plancher anti-« oubli de soi »** — on conserve toujours ici le *pourquoi* compressé (méta-principe
+et 3 pôles), pas seulement les règles. Un protocole réduit à ses règles perd la capacité de juger
+un cas que ses règles n'avaient pas prévu.
 
-**Référent stable immuable** : `prompts/tj_v72/` (21 documents). V.8 se construit en parallèle,
-sans toucher tj_v72/.
+**Contenu** : 20 modules + `emission_audit_v8.md`, le template du bloc d'audit émis en fin de
+cycle. Le template n'est pas un module : il n'a pas de fiche de détail, et c'est normal.
+
+**Le détail** vit dans [`../archive/`](../archive/) et ne se charge qu'à la demande.

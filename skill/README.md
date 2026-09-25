@@ -4,13 +4,15 @@ Paquet généré par `build_skill_v8.py`. **Ne pas éditer à la main** : la sou
 `prompts/lab_v8/{actif,archive}/`, régénérer avec `py build_skill_v8.py`.
 
 - `SKILL.md` — frontmatter + contrat de chargement + index
-- `references/` — 21 modules de la couche active (intégraux)
-- `archive/` — 20 fichiers de détail (lus à la demande)
+- `references/` — 20 modules de la couche active + le template d'émission (intégraux)
+- `archive/` — 20 fiches de détail (lues à la demande), une par module
 
 ## Installation selon l'environnement
 
-**Agent de code (Claude Code, Cursor, Codex…)** — copier le dossier `protocol-lab/` dans le répertoire
-de skills du harness. Le `description` du frontmatter suffit au déclenchement ; rien à coller.
+**Agent de code (Claude Code, Cursor, Codex…)** — copier ce dossier dans le répertoire de skills du
+harness, **en le renommant `protocol-lab`** : le nom du dossier doit correspondre au champ `name` du
+frontmatter de `SKILL.md`, sans quoi la skill ne se déclenche pas. Le `description` suffit ensuite au
+déclenchement ; rien à coller.
 
 **Conversation (claude.ai, projet)** — déposer `SKILL.md` et `references/` dans les fichiers du projet.
 `SKILL.md` sert de point d'entrée : il indique quoi lire et dans quel ordre.
