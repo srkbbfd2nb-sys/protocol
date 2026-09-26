@@ -119,7 +119,7 @@ d'émission ; [protocole/archive/](protocole/archive/) leur détail.
 protocole/actif/     20 modules + le template d'émission — la couche runtime
 protocole/archive/   20 fiches de détail — chargées à la demande
 skill/               le même contenu, empaqueté en Agent Skill installable
-lab/                 l'instrument : extracteur, schéma, vérificateur, fixtures, tests
+lab/                 l'instrument : extracteur, schéma, vérificateur, contrôle de cohérence, tests
 mesures/             ce qui a été mesuré, et ce que ça ne prouve pas
 GLOSSAIRE.md         les sigles, leur développement et ce qu'ils désignent
 ```
@@ -135,11 +135,21 @@ la légèreté vient de la divulgation progressive, jamais d'une amputation.
 ```bash
 python -m pytest lab/tests/ -q
 python lab/audit_v8.py --input-file lab/fixtures/coherence-violee.txt   # doit sortir en 1
+python lab/coherence.py                                                 # cohérence du protocole
 ```
 
-26 tests sur 9 fixtures. La CI les rejoue à chaque commit, vérifie le code de sortie **exact** de
-chaque fixture, et contrôle en plus la dualité des couches, la non-divergence du paquet Skill, et
-la concordance entre le template d'émission, le schéma et le vérificateur.
+40 tests sur 9 fixtures. La CI les rejoue à chaque commit, vérifie le code de sortie **exact** de
+chaque fixture, et contrôle en plus la dualité des couches, la non-divergence du paquet Skill, la
+concordance entre le template d'émission, le schéma et le vérificateur — et la **cohérence du
+protocole lui-même** : chaque sigle a son entrée au glossaire, chaque module apparaît dans le Graphe,
+chaque couplage est déclaré des deux côtés, chaque nombre annoncé vaut le réel, aucun nom de modèle
+n'entre dans la couche normative.
+
+> **Ces contrôles trouvent des défauts, et ils sont publiés.** 102 incohérences existantes sont
+> inscrites une par une dans [lab/coherence_dette.json](lab/coherence_dette.json) : EXT-03,
+> Framework et I-06 absents du Graphe, F-04 qui ne déclare pas ses couplages, vingt-cinq couplages
+> déclarés d'un seul côté, des sigles jamais définis. La CI échoue sur toute incohérence nouvelle, et sur toute
+> dette soldée qui resterait inscrite : ce registre ne peut que décroître.
 
 ## Langue
 
@@ -165,6 +175,10 @@ Une règle encadre les évolutions : **aucun durcissement ni assouplissement san
 > `SDA-I ≥ 4` — restent des paliers de travail, pas des valeurs mesurées. La contribution la plus
 > utile qu'on puisse apporter ici est une **mesure**, en particulier une évaluation par un tiers
 > hors contexte : c'est la seule façon de sortir de la circularité.
+
+Le point d'entrée le plus direct est la **dette de cohérence** : chaque entrée de
+[lab/coherence_dette.json](lab/coherence_dette.json) est une correction délimitée, et la CI dit
+immédiatement si elle est soldée.
 
 Voir [CONTRIBUTING.md](CONTRIBUTING.md).
 

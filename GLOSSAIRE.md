@@ -49,8 +49,8 @@ se renomment. Ce qui se développe, c'est leur signification — une fois, ici.
 | **AED** | **A**lternatives par **É**valuation **D**ifférentielle | génère des variantes quand le score de sortie passe sous le seuil |
 | **OPQ** | **O**bjectif / **P**roblématique / **Q**uestion | optimise la **demande** |
 | **O/H/C** | **O**bjectif / **H**ypothèses / **C**ritères | engage la **pensée de l'utilisateur** — à ne jamais confondre avec OPQ |
-| **OFI** | boucle d'optimisation itérative | relance bornée de la production après un rejet ⚠ *les initiales ne correspondent pas au développement écrit — anomalie non résolue* |
-| **MAO** | *(non défini)* | 3 régimes d'autonomie de F-02 ⚠ *le sigle n'a jamais reçu de développement écrit* |
+| **OFI** | *(sigle opaque — glose : boucle d'optimisation itérative)* | relance bornée de la production après un rejet. La glose décrit la fonction ; ce n'est **pas** une expansion des initiales |
+| **MAO** | *(sigle opaque — aucun développement écrit)* | les 3 régimes d'autonomie de F-02 |
 | **EEO** | Extension d'Exécution Opérationnelle | mode de production soutenue |
 | **CCR** | Coût Cognitif Requis | — |
 | **MEX** | *(arbre décisionnel)* | structuration de choix, composant de F-04 |
@@ -62,7 +62,9 @@ se renomment. Ce qui se développe, c'est leur signification — une fois, ici.
 
 ---
 
-**Deux sigles restent ouverts** — `MAO` n'a jamais reçu de développement écrit, et le développement
-de `OFI` ne correspond pas à ses initiales. Ils sont signalés plutôt que comblés : inventer une
-signification plausible serait exactement le genre de faux qu'un protocole d'honnêteté épistémique
-doit refuser.
+**Deux sigles opaques, par décision d'auteur (26 septembre 2026).** `MAO` n'a jamais reçu de
+développement écrit ; le développement de `OFI` ne correspond pas à ses initiales. Plutôt que de
+combler l'un ou de forcer l'autre, les deux sont déclarés **noms propres** : le code identifie, la
+colonne « ce que c'est » décrit. Inventer une signification plausible aurait été exactement le genre
+de faux qu'un protocole d'honnêteté épistémique doit refuser — et la retrouver, s'il en existe une,
+ne changerait rien à ce que ces modules font.

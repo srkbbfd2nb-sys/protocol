@@ -1,0 +1,515 @@
+{
+ "_lisez-moi": "Dette de cohérence du protocole : chaque violation connue, inscrite une par une. lab/coherence.py échoue sur toute violation absente d'ici, et sur toute entrée d'ici qui ne correspond plus à rien. La dette ne peut que décroître. Relevée le 26 septembre 2026 sur la V.8 publiée ; à solder pendant la bascule V.9-A.",
+ "violations": [
+  {
+   "controle": "sigles",
+   "cle": "A1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "A1-A8",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "A2",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "A3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "AI-WATCH",
+   "nature": "canal ou bloc nommé, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "B-F",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C-1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C-2",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C-3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C-4",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C-5",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C1-C4",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C2",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "C4",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "D2",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "D4",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "E-1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "E-2",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "E-3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "E-4",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "E-5",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "F-B",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "F-C",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "F.1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "F.1-F.6",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "F.2",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "F.3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "F.6",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "GIT",
+   "nature": "code retiré, démoté ou fusionné, encore cité"
+  },
+  {
+   "controle": "sigles",
+   "cle": "INV.9",
+   "nature": "code retiré, démoté ou fusionné, encore cité"
+  },
+  {
+   "controle": "sigles",
+   "cle": "INV.M",
+   "nature": "code retiré, démoté ou fusionné, encore cité"
+  },
+  {
+   "controle": "sigles",
+   "cle": "L0",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "L0-L5",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "L1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "L2",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "L3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "L4",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "L5",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "LLM-UPDATE",
+   "nature": "canal ou bloc nommé, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "M0",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "MECA-JSON",
+   "nature": "code retiré, démoté ou fusionné, encore cité"
+  },
+  {
+   "controle": "sigles",
+   "cle": "OP-1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "OP-2",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "OP-3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P0",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P1.5",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P2",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P2-3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P2-P3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P3",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P3-P4",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P4",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P5",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "P6",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "PADC-ALERTE",
+   "nature": "canal ou bloc nommé, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "PADC-EVAL",
+   "nature": "canal ou bloc nommé, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "R1",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "R3",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "RE",
+   "nature": "abréviation non définie"
+  },
+  {
+   "controle": "sigles",
+   "cle": "S0",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "S1-A",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "S3",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "S3-B",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "S4",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "S4-A",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "S4-D",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "T2",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "sigles",
+   "cle": "V-1",
+   "nature": "sous-composant ou famille numérotée d'un module, sans entrée au glossaire"
+  },
+  {
+   "controle": "sigles",
+   "cle": "V3",
+   "nature": "code de construction (document ou cycle non publié) — à anonymiser en V.9-A"
+  },
+  {
+   "controle": "graphe",
+   "cle": "EXT-03",
+   "nature": "module absent du Graphe actif et de sa fiche de détail"
+  },
+  {
+   "controle": "graphe",
+   "cle": "Framework",
+   "nature": "module absent du Graphe actif et de sa fiche de détail"
+  },
+  {
+   "controle": "graphe",
+   "cle": "I-06",
+   "nature": "module absent du Graphe actif et de sa fiche de détail"
+  },
+  {
+   "controle": "couplages",
+   "cle": "F-04 : pas de section Couplages",
+   "nature": "module sans section Couplages"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-01 cite MECA, MECA ne cite pas EXT-01",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-02 cite F-02, F-02 ne cite pas EXT-02",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-02 cite MECA, MECA ne cite pas EXT-02",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-03 cite EXT-02, EXT-02 ne cite pas EXT-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-03 cite F-01, F-01 ne cite pas EXT-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-03 cite Lyra, Lyra ne cite pas EXT-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-03 cite MECA, MECA ne cite pas EXT-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-03 cite MEDA, MEDA ne cite pas EXT-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "EXT-03 cite PADC-IA, PADC-IA ne cite pas EXT-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "F-01 cite ACA, ACA ne cite pas F-01",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "F-01 cite MAMD, MAMD ne cite pas F-01",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "F-01 cite MECA, MECA ne cite pas F-01",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "F-03 cite EXT-02, EXT-02 ne cite pas F-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "F-03 cite F-02, F-02 ne cite pas F-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "F-03 cite Lyra, Lyra ne cite pas F-03",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "Framework cite EXT-01, EXT-01 ne cite pas Framework",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "I-06 cite I-05, I-05 ne cite pas I-06",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "Lyra cite MECA, MECA ne cite pas Lyra",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "MEDA cite MECA, MECA ne cite pas MEDA",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "PADC-IA cite EXT-02, EXT-02 ne cite pas PADC-IA",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "SONDE cite EXT-02, EXT-02 ne cite pas SONDE",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "SONDE cite I-06, I-06 ne cite pas SONDE",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "SONDE cite MAMD, MAMD ne cite pas SONDE",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "SONDE cite MECA, MECA ne cite pas SONDE",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "couplages",
+   "cle": "SONDE cite MEDA, MEDA ne cite pas SONDE",
+   "nature": "paire déclarée d'un seul côté"
+  },
+  {
+   "controle": "modeles",
+   "cle": "i06_v8.md : Claude.ai",
+   "nature": "nom de produit dans la couche normative (Règle de récence)"
+  }
+ ]
+}

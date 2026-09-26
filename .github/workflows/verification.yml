@@ -76,6 +76,13 @@ jobs:
           grep -q "===== LAB AUDIT JSON =====" protocole/actif/emission_audit_v8.md
           grep -q "LAB|TJ" lab/audit/v8/json_extractor.py
 
+      # Six contrôles : sigles ↔ glossaire, modules ↔ Graphe, symétrie des couplages,
+      # comptages annoncés, noms de modèle dans la couche normative, paquet ↔ source.
+      # Échoue sur toute violation absente de lab/coherence_dette.json, et sur toute
+      # dette soldée qui y resterait inscrite.
+      - name: Cohérence du protocole (dette connue exceptée, et exacte)
+        run: python3 lab/coherence.py
+
       # La concordance schéma ↔ template (énumération par énumération) est
       # couverte par lab/tests, qui tourne dans le job « instrument ».
       - name: L'instrument n'importe que la bibliothèque standard

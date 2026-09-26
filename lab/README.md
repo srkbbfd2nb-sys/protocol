@@ -84,15 +84,53 @@ façon cohérente passerait.**
 C'est la limite fondamentale de l'instrument dans son état actuel, elle est connue, et elle est le
 prochain chantier du projet — pas un détail à contourner.
 
+## La cohérence du protocole
+
+```bash
+python lab/coherence.py
+```
+
+L'instrument vérifie aussi le texte qu'il sert. Six contrôles, bibliothèque standard seule :
+
+| Contrôle | Ce qu'il attrape |
+|---|---|
+| `sigles` | un code employé dans la couche active sans entrée au glossaire |
+| `graphe` | un module de la couche active absent du Graphe — le défaut SONDE, rendu impossible |
+| `couplages` | un module sans section Couplages ; une paire citée d'un côté et pas de l'autre |
+| `comptages` | un nombre annoncé (pôles, invariants, modules, natures…) qui ne vaut pas le réel |
+| `modeles` | un nom de modèle ou de produit dans la couche normative — la Règle de récence |
+| `paquet` | une copie de `skill/` qui diverge de `protocole/` |
+
+Chaque contrôle est vu échouer dans `tests/test_coherence.py` : une incohérence y est injectée
+volontairement, et le contrôle doit la signaler. Un contrôle qu'on n'a jamais vu échouer n'est pas
+un contrôle.
+
+**Une règle d'écriture en découle.** Un nombre suivi de « modules », « invariants », « pôles »,
+« natures »… est lu comme un **total** et comparé au réel. Pour parler d'une partie, nommer les
+éléments (« EXT-03 et I-06 ») plutôt que les compter — c'est aussi plus informatif. Seul sous-ensemble
+reconnu : « invariants strictement restrictifs », vérifié contre le garde-fou de MI-3.
+
+**Ce qu'il ne vérifie pas.** La symétrie porte sur la *paire* de modules, pas sur la nature ni le
+sens du couplage : le texte des sections Couplages est de la prose, et l'analyser plus finement
+produirait des faux positifs. Les jetons en capitales qui ne sont pas des codes (titres de section,
+acronymes externes) sont déclarés un par un en tête du script — élargir cette liste est une décision
+visible dans un diff.
+
+**La dette.** Les incohérences existantes sont inscrites dans `coherence_dette.json`, avec leur
+nature. Le contrôle échoue sur toute incohérence absente du registre, **et** sur toute entrée du
+registre qui ne correspond plus à rien : une correction doit retirer sa ligne, sinon le registre
+ment. Il ne peut donc que décroître.
+
 ## Tests
 
 ```bash
 python -m pytest lab/tests/ -q
 ```
 
-26 tests sur 9 fixtures : extraction, tolérance de l'ancien jeton, bloc absent, JSON invalide,
+40 tests sur 9 fixtures : extraction, tolérance de l'ancien jeton, bloc absent, JSON invalide,
 cohérence violée, dégradation du score, codes de sortie, bout en bout par la ligne de commande,
 reproductibilité du verdict — et, depuis la seconde revue externe, la **validité** : repli sans
 délimiteurs, axe hors plage, énumération inconnue, score global incohérent, section entière absente,
 comptes mal typés, concordance schéma ↔ template. Chacun de ces derniers cas sortait en `0` ou
-faisait planter l'instrument avant correction. Un clone nu suffit à les faire tourner.
+faisait planter l'instrument avant correction. Plus 14 tests de cohérence, dont un par contrôle
+vu échouer. Un clone nu suffit à les faire tourner.
