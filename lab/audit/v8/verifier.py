@@ -7,7 +7,21 @@ Verdict : STRUCTURE >= .75 · PARTIEL >= .40 · NON-STRUCTURE.
 
 Les cohérences vérifiées sont STRUCTURELLES (invariants inter-champs déclarés
 dans emission_audit_v8.md) — jamais un jugement sémantique du contenu.
+
+Deux contrôles distincts, qui ne se remplacent pas :
+  - le score mesure la **présence** des champs (inchangé depuis la mesure publiée) ;
+  - la validation de schéma contrôle leur **validité** : types, plages, énumérations.
+Un bloc peut être complet et faux : c'est la validation qui l'attrape.
 """
+
+from audit.v8.validation import charger_schema, valider
+
+# score_global = somme des 5 axes pondérés ×0,20, arrondie à deux décimales
+# (tj_v72/07_meca:285 et :500 — la fiche V.8 dit « somme pondérée » sans les poids).
+# La tolérance n'est pas un seuil empirique : c'est l'erreur maximale d'un arrondi
+# à deux décimales (0,005), plus une marge de représentation flottante.
+POIDS_AXE = 0.20
+TOLERANCE_SCORE_GLOBAL = 0.005 + 1e-9
 
 PONDERATIONS = {
     "signature_mamd": 0.20,
@@ -33,10 +47,16 @@ AXES_MECA = ["clarte", "valeur_cognitive", "coherence", "robustesse_ab", "integr
 def verifier(data):
     """Retourne le rapport structurel complet (dict)."""
     if not isinstance(data, dict):
-        return {"score_global": 0.0, "verdict": "NON-STRUCTURE",
-                "sections": {}, "coherences": [], "notes": ["bloc absent ou non parsable"]}
+        return {"score_global": 0.0, "verdict": "NON-STRUCTURE", "exploitable": False,
+                "sections": {}, "coherences": [], "violations_schema": [],
+                "notes": ["bloc absent ou non parsable"]}
 
     sections, notes = {}, []
+    violations_schema = valider(data, charger_schema())
+    non_declarees = [k for k in data if k not in PONDERATIONS]
+    if non_declarees:
+        notes.append("section(s) non déclarée(s) au template, admises sans contrôle : "
+                     + ", ".join(non_declarees))
     for nom in PONDERATIONS:
         sections[nom] = _score_section(nom, data.get(nom))
 
@@ -60,7 +80,8 @@ def verifier(data):
     verdict = "STRUCTURE" if score >= 0.75 else "PARTIEL" if score >= 0.40 else "NON-STRUCTURE"
     return {"score_global": score, "score_structurel": score_structurel,
             "facteur_coherence": facteur_coherence, "n_violations_coherence": n_violations,
-            "verdict": verdict, "sections": sections, "coherences": coherences, "notes": notes}
+            "verdict": verdict, "exploitable": True, "sections": sections,
+            "coherences": coherences, "violations_schema": violations_schema, "notes": notes}
 
 
 def _score_section(nom, contenu):
@@ -75,7 +96,8 @@ def _score_section(nom, contenu):
         details.append("champs manquants: " + ", ".join(manquants))
     else:
         details.append("complet (" + str(len(requis)) + " champs)")
-    # 0.2 de cohérence acquis par défaut, décrémenté par _coherences si violation
+    # 0.2 de cohérence acquis par défaut. Une violation ne le décrémente pas ici :
+    # elle est pénalisée globalement par facteur_coherence (voir verifier()).
     score += 0.2
     # Sous-structure MECA : 5 axes attendus
     if nom == "meca" and isinstance(contenu.get("axes"), dict):
@@ -86,31 +108,64 @@ def _score_section(nom, contenu):
     return {"score": round(min(score, 1.0), 3), "details": details}
 
 
+def _objet(valeur):
+    """Une sous-section du mauvais type est traitée comme absente. La validation
+    de schéma la signale ; les cohérences ne doivent pas planter dessus."""
+    return valeur if isinstance(valeur, dict) else {}
+
+
+def _entier(valeur):
+    return isinstance(valeur, int) and not isinstance(valeur, bool)
+
+
+def _nombre(valeur):
+    return isinstance(valeur, (int, float)) and not isinstance(valeur, bool)
+
+
 def _coherences(data, notes):
-    """Invariants inter-champs (emission_audit_v8.md). Structurels uniquement."""
+    """Invariants inter-champs (emission_audit_v8.md). Structurels uniquement.
+
+    Une règle ne s'évalue que si ses champs ont le bon type : sinon elle est
+    notée « non évaluable » et c'est la validation de schéma qui porte l'échec.
+    """
     resultats = []
 
     def _regle(section, regle, ok):
         resultats.append({"section": section, "regle": regle, "ok": bool(ok)})
 
-    meca = data.get("meca") or {}
-    auth = meca.get("authenticite_alternatives") or {}
-    if all(k in auth for k in ("presentees", "survivantes", "leurres")):
-        _regle("meca", "leurres = presentees - survivantes",
-               auth["leurres"] == auth["presentees"] - auth["survivantes"])
+    meca = _objet(data.get("meca"))
+    auth = _objet(meca.get("authenticite_alternatives"))
+    comptes = ("presentees", "survivantes", "leurres")
+    if all(k in auth for k in comptes):
+        if all(_entier(auth[k]) for k in comptes):
+            _regle("meca", "leurres = presentees - survivantes",
+                   auth["leurres"] == auth["presentees"] - auth["survivantes"])
+        else:
+            notes.append("règle « leurres = presentees - survivantes » non évaluable : "
+                         "comptes non entiers")
     if auth.get("effondrement") is True:
         _regle("meca", "effondrement => refutation_demontree",
                auth.get("refutation_demontree") is True)
 
-    gates = data.get("gates") or {}
-    sig = data.get("signature_mamd") or {}
+    axes = _objet(meca.get("axes"))
+    if "score_global" in meca and all(a in axes for a in AXES_MECA):
+        if _nombre(meca["score_global"]) and all(_nombre(axes[a]) for a in AXES_MECA):
+            attendu = sum(axes[a] * POIDS_AXE for a in AXES_MECA)
+            _regle("meca", f"score_global = somme des axes x{POIDS_AXE} (attendu {attendu:.3f}, "
+                           f"tolerance {TOLERANCE_SCORE_GLOBAL:.3f})",
+                   abs(meca["score_global"] - attendu) <= TOLERANCE_SCORE_GLOBAL)
+        else:
+            notes.append("règle « score_global = somme des axes » non évaluable : "
+                         "valeurs non numériques")
+
+    gates = _objet(data.get("gates"))
+    sig = _objet(data.get("signature_mamd"))
+    ordre = _objet(gates.get("ordre_2_3"))
     if gates.get("f04_mode") == "forte":
         _regle("gates", "f04_mode=forte => engagement=delegation_pure",
                sig.get("engagement") == "delegation_pure")
-        ordre = gates.get("ordre_2_3") or {}
         _regle("gates", "f04_mode=forte => ordre_2_3.securise",
                ordre.get("securise") is True)
-    ordre = gates.get("ordre_2_3") or {}
     if "viole" in ordre:
         _regle("gates", "ordre_2_3.viole = false (gate souverainete)",
                ordre.get("viole") is False)

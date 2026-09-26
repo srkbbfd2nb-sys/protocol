@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lab_audit_v8.schema.json",
+  "title": "Bloc LAB AUDIT JSON — contrat d'émission V.8",
+  "description": "Transcription du template protocole/actif/emission_audit_v8.md. Chaque énumération y est reprise telle quelle ; un test vérifie que les deux ne divergent pas. Les cohérences inter-champs (leurres = présentées − survivantes, score_global = moyenne des axes, etc.) ne sont pas exprimables ici : elles sont vérifiées par verifier.py.",
+  "type": "object",
+  "required": ["signature_mamd", "activations_aca", "gates", "meca", "reflexivite_i07"],
+  "properties": {
+    "signature_mamd": {
+      "type": "object",
+      "required": ["intention", "domaine", "nature_epistemique", "complexite", "engagement",
+                   "risques", "contexte_session", "signaux_delegation"],
+      "properties": {
+        "intention": { "type": "string" },
+        "domaine": { "type": "string" },
+        "nature_epistemique": { "type": "string", "enum": ["F", "E", "O", "P", "mixte"] },
+        "complexite": { "type": "string", "enum": ["faible", "moderee", "elevee"] },
+        "engagement": { "type": "string",
+                        "enum": ["autonome", "collaboratif", "delegation_partielle", "delegation_pure"] },
+        "risques": { "type": "array", "items": { "type": "string" } },
+        "contexte_session": { "type": "string" },
+        "signaux_delegation": {
+          "type": "object",
+          "required": ["lexical", "syntaxique", "intentionnel"],
+          "properties": {
+            "lexical": { "type": "string", "enum": ["oui", "non"] },
+            "syntaxique": { "type": "string", "enum": ["oui", "non"] },
+            "intentionnel": { "type": "string", "enum": ["oui", "non"] }
+          }
+        }
+      }
+    },
+    "activations_aca": {
+      "type": "object",
+      "required": ["actives", "non_activees_malgre_signal", "commandes", "etat"],
+      "properties": {
+        "actives": { "type": "array", "items": { "type": "string" } },
+        "non_activees_malgre_signal": { "type": "array", "items": { "type": "string" } },
+        "commandes": { "type": "array", "items": { "type": "string" } },
+        "etat": { "type": "string", "enum": ["actif", "off_cycle", "off_session"] }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "required": ["lyra_p0", "f04_mode", "ordre_2_3"],
+      "properties": {
+        "lyra_p0": { "type": "string", "enum": ["passe", "signale"] },
+        "f04_mode": { "type": "string", "enum": ["aucun", "forte", "molle", "bypass_trace"] },
+        "ordre_2_3": {
+          "type": "object",
+          "required": ["securise", "viole"],
+          "properties": {
+            "securise": { "type": "boolean" },
+            "viole": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "meca": {
+      "type": "object",
+      "required": ["axes", "score_global", "mode", "conformite_reflexive", "coherence_mamd",
+                   "authenticite_alternatives"],
+      "properties": {
+        "axes": {
+          "type": "object",
+          "required": ["clarte", "valeur_cognitive", "coherence", "robustesse_ab", "integrite"],
+          "properties": {
+            "clarte": { "type": "number", "minimum": 0, "maximum": 1 },
+            "valeur_cognitive": { "type": "number", "minimum": 0, "maximum": 1 },
+            "coherence": { "type": "number", "minimum": 0, "maximum": 1 },
+            "robustesse_ab": { "type": "number", "minimum": 0, "maximum": 1 },
+            "integrite": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "score_global": { "type": "number", "minimum": 0, "maximum": 1 },
+        "mode": { "type": "string", "enum": ["informe", "partiel", "fallback"] },
+        "conformite_reflexive": {
+          "type": "object",
+          "required": ["pa1", "pa2", "pa3"],
+          "properties": {
+            "pa1": { "type": "string", "enum": ["ok", "alerte", "echec"] },
+            "pa2": { "type": "string", "enum": ["ok", "alerte", "echec"] },
+            "pa3": { "type": "string", "enum": ["ok", "alerte", "echec"] }
+          }
+        },
+        "coherence_mamd": {
+          "type": "object",
+          "required": ["intention", "nature_feop", "complexite", "risques", "contexte"],
+          "properties": {
+            "intention": { "type": "string", "enum": ["ok", "derive"] },
+            "nature_feop": { "type": "string", "enum": ["ok", "derive"] },
+            "complexite": { "type": "string", "enum": ["ok", "derive"] },
+            "risques": { "type": "string", "enum": ["ok", "partiel", "ignore"] },
+            "contexte": { "type": "string", "enum": ["ok", "derive"] }
+          }
+        },
+        "authenticite_alternatives": {
+          "type": "object",
+          "required": ["presentees", "survivantes", "leurres", "effondrement",
+                       "refutation_demontree", "amorce_appropriee"],
+          "properties": {
+            "presentees": { "type": "integer", "minimum": 0 },
+            "survivantes": { "type": "integer", "minimum": 0 },
+            "leurres": { "type": "integer", "minimum": 0 },
+            "effondrement": { "type": "boolean" },
+            "refutation_demontree": { "type": "boolean" },
+            "amorce_appropriee": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "reflexivite_i07": {
+      "type": "object",
+      "required": ["coherence_cycle", "auto_portage", "cohabitation", "derive"],
+      "properties": {
+        "coherence_cycle": { "type": "string", "enum": ["conforme", "derive"] },
+        "auto_portage": { "type": "string", "enum": ["ok", "alerte"] },
+        "cohabitation": { "type": "string", "enum": ["ok", "conflit"] },
+        "derive": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

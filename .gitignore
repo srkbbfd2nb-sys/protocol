@@ -1,7 +1,8 @@
 # =====================================================================
-#  Dépôt de publication — il ne contient que du Markdown.
-#  Ce fichier est une ceinture par-dessus les bretelles : la protection
-#  principale est la liste blanche qui a construit ce dossier.
+#  Dépôt de publication — du Markdown (le protocole) et du Python
+#  bibliothèque standard (l'instrument, lab/). Ce fichier est une ceinture
+#  par-dessus les bretelles : la protection principale est la liste
+#  blanche qui a construit ce dossier.
 # =====================================================================
 
 # Secrets — non négociable

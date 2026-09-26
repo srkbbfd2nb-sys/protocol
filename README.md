@@ -10,9 +10,9 @@ Le dépôt porte les deux moitiés : **le protocole**, qui affirme, et **l'instr
 python lab/audit_v8.py --input-file reponse.txt
 ```
 
-Colle simplement entre "..." une réponse produite sous protocole dans un fichier, lance cette commande, obtiens un
-verdict. Pas de clé, pas de compte, pas de serveur, aucune dépendance. C'est ce qui sépare un
-document d'un objet vérifiable.
+Colle simplement la réponse produite sous protocole, telle quelle, dans un fichier texte, lance
+cette commande, obtiens un verdict. Pas de clé, pas de compte, pas de serveur, aucune dépendance.
+C'est ce qui sépare un document d'un objet vérifiable.
 
 ---
 
@@ -119,7 +119,7 @@ d'émission ; [protocole/archive/](protocole/archive/) leur détail.
 protocole/actif/     20 modules + le template d'émission — la couche runtime
 protocole/archive/   20 fiches de détail — chargées à la demande
 skill/               le même contenu, empaqueté en Agent Skill installable
-lab/                 l'instrument : extracteur, vérificateur, fixtures, 11 tests
+lab/                 l'instrument : extracteur, schéma, vérificateur, fixtures, tests
 mesures/             ce qui a été mesuré, et ce que ça ne prouve pas
 GLOSSAIRE.md         les sigles, leur développement et ce qu'ils désignent
 ```
@@ -137,9 +137,9 @@ python -m pytest lab/tests/ -q
 python lab/audit_v8.py --input-file lab/fixtures/coherence-violee.txt   # doit sortir en 1
 ```
 
-Onze tests sur six fixtures. La CI les rejoue à chaque commit et contrôle en plus la dualité des
-couches, la non-divergence du paquet Skill, et la concordance du délimiteur entre le template
-d'émission et le vérificateur.
+26 tests sur 9 fixtures. La CI les rejoue à chaque commit, vérifie le code de sortie **exact** de
+chaque fixture, et contrôle en plus la dualité des couches, la non-divergence du paquet Skill, et
+la concordance entre le template d'émission, le schéma et le vérificateur.
 
 ## Langue
 

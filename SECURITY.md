@@ -9,11 +9,33 @@ Ne pas ouvrir d'issue publique pour une vulnérabilité exploitable.
 
 ## Périmètre
 
-Ce dépôt ne contient **que du texte** : des fichiers Markdown décrivant un protocole. Aucun code
-exécutable, aucune dépendance, aucun service. La surface d'attaque classique — exécution, chaîne
-d'approvisionnement, secrets — est donc absente par construction.
+Le dépôt a trois parties, et elles n'ont pas la même surface d'attaque :
 
-Ce qui reste pertinent :
+| Partie | Nature | Ce qui s'exécute |
+|---|---|---|
+| `protocole/`, `skill/` | texte normatif (Markdown) | rien — il est **chargé comme instructions** par un agent |
+| `lab/` | instrument de vérification en Python | du code, sur la machine de qui le lance |
+| `.github/workflows/` | intégration continue | du code, sur l'infrastructure de GitHub, à chaque commit |
+
+**L'instrument** est écrit en Python, **bibliothèque standard seule** : aucune dépendance
+d'exécution, aucun appel réseau, aucune clé. Il lit un fichier texte, rend un verdict, et écrit
+une seule chose : un rapport JSON dans `logs/`, **sous le répertoire courant**. Les tests demandent
+`pytest`, et rien d'autre.
+
+**Ce que ça change pour une contribution.** Le dépôt accepte désormais du code, pas seulement du
+texte. En conséquence, une demande de fusion qui :
+
+- ajoute une **dépendance** à l'instrument (un `import` hors bibliothèque standard, un fichier
+  `requirements`) ;
+- introduit un **appel réseau**, une lecture de variable d'environnement ou de clé ;
+- fait **écrire** l'instrument ailleurs, ou autre chose que ce rapport ;
+- modifie le **workflow** d'intégration continue (actions tierces, permissions, secrets) ;
+
+est un **changement de sécurité**, pas de style. Elle se relit comme tel et se justifie dans sa
+description. C'est aussi la condition de la promesse faite au lecteur : pouvoir vérifier sans rien
+installer ni rien confier.
+
+Ce qui reste pertinent pour la partie texte :
 
 **Injection par le contenu.** Le protocole est chargé comme instructions par un agent. Un contenu
 tiers qui y serait inséré pourrait tenter d'en détourner le comportement. Le protocole traite ce
@@ -27,6 +49,12 @@ style.
 
 **Fuite par l'exemple.** Un exemple, une trace ou une citation qui exposerait des données
 personnelles, un chemin de machine ou un identifiant. Le signaler immédiatement.
+
+Et pour l'instrument :
+
+**Faux conforme.** Un bloc d'audit invalide que le vérificateur déclarerait conforme (sortie `0`)
+est un défaut de sécurité de l'outil : une chaîne d'intégration qui s'y fie laisserait passer ce
+qu'elle est censée arrêter. Même règle pour un plantage, qui rend un code de sortie sans verdict.
 
 ## Ce qui n'est pas une vulnérabilité
 

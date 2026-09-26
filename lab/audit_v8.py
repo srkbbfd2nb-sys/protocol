@@ -14,7 +14,10 @@ Usage :
   python audit_v8.py --input-file reponse.txt
   python audit_v8.py --stdin        (coller le texte, finir par Ctrl-D / Ctrl-Z)
 
-Codes de sortie : 0 conforme · 1 non conforme · 2 bloc inexploitable.
+Codes de sortie : 0 conforme · 1 non conforme · 2 inexploitable (bloc absent,
+JSON illisible, fichier introuvable). Le bloc est validé contre
+schema/lab_audit_v8.schema.json ; un bloc trouvé sans ses délimiteurs est lu,
+mais ne sort jamais en 0.
 
 Portée : il vérifie la **conformité et la cohérence interne** d'une
 auto-déclaration. Pas sa véracité. Un modèle qui mentirait de façon cohérente
@@ -31,6 +34,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from audit.v8.json_extractor import extraire_bloc
 from audit.v8.verifier import verifier
 from audit.v8 import report_v8
+from audit.v8 import conformite
 
 
 def auditer_texte(texte: str, source: str = "texte"):
@@ -48,13 +52,9 @@ def code_de_sortie(rapport, statut) -> int:
     Un instrument qui rend toujours 0 est un rapport, pas un garde-fou : aucune
     chaine d'integration ne peut s'y brancher. La non-conformite doit etre
     bruyante au sens d'INV.5, y compris pour un programme appelant.
+    La decision elle-meme vit dans audit/v8/conformite.py, que le rapport lit aussi.
     """
-    if statut in ("bloc_absent", "json_invalide"):
-        return 2
-    violations = [c for c in rapport.get("coherences", []) if not c.get("ok", True)]
-    if violations or rapport.get("verdict") != "STRUCTURE":
-        return 1
-    return 0
+    return conformite.evaluer(rapport, statut)[0]
 
 
 def main():
@@ -69,8 +69,11 @@ def main():
         if idx + 1 < len(args):
             chemin = args[idx + 1]
             if not os.path.isfile(chemin):
+                # 2, pas 1 : un chemin faux n'est pas une reponse non conforme.
+                # Sortir en 1 ferait passer une CI qui attend un refus sans
+                # avoir jamais lu le fichier.
                 print(f"ERREUR — fichier introuvable : {chemin}")
-                sys.exit(1)
+                sys.exit(2)
             with open(chemin, "r", encoding="utf-8") as f:
                 texte = f.read()
             source = chemin

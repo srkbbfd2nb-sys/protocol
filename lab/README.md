@@ -24,7 +24,16 @@ depuis l'extérieur. C'est la revue à contexte frais, appliquée à la machine.
 
 ## Ce qu'il vérifie
 
-**La présence et la complétude** des cinq sections du bloc d'émission.
+**La validité du bloc**, contre un schéma publié :
+[`schema/lab_audit_v8.schema.json`](schema/lab_audit_v8.schema.json), transcription du template
+d'émission — types, plages (les axes dans [0, 1]), énumérations, champs requis. Un test vérifie que
+le schéma et le template ne divergent pas. Le validateur est écrit à la main, bibliothèque standard
+seule, et **refuse de charger** un schéma qui emploierait un mot-clé qu'il n'applique pas : il ne
+peut pas promettre une contrainte qu'il ne vérifie pas. Le schéma reste du JSON Schema standard,
+rejouable avec n'importe quel validateur conforme.
+
+**La présence et la complétude** des cinq sections — c'est ce que mesure le score structurel.
+Présence et validité sont deux contrôles distincts : un bloc peut être complet et faux.
 
 **Les cohérences arithmétiques** — celles qui ne demandent pas de relire le texte :
 
@@ -33,20 +42,34 @@ depuis l'extérieur. C'est la revue à contexte frais, appliquée à la machine.
 | `leurres = présentées − survivantes` | un comptage d'alternatives qui ne se tient pas |
 | `effondrement ⇒ réfutation démontrée` | un effondrement déclaré sans la réfutation qui le justifie |
 | `maïeutique forte ⇒ engagement = délégation pure` | un gate déclenché sans son motif |
+| `maïeutique forte ⇒ ordre ②→③ sécurisé` | une maïeutique forte qui laisserait produire |
 | `ordre_2_3.viole = false` | une production lancée avant la sécurisation de la souveraineté |
+| `score_global = somme des axes × 0,20` | un score global qui ne découle pas des axes annoncés |
+
+La dernière règle vient du module MECA (5 axes, ×0,20 chacun, arrondi à deux décimales). Sa
+tolérance, 0,005, n'est pas un seuil choisi : c'est l'erreur maximale d'un arrondi à deux décimales.
+Une règle ne s'évalue que si ses champs ont le bon type ; sinon c'est le schéma qui porte l'échec,
+et l'instrument ne plante pas.
 
 **Le délimiteur**, avec une tolérance de transition `(?:LAB|TJ)` : une session tournant encore sur
 l'ancien nom reste lisible. Refuser l'ancien jeton ne lèverait pas d'erreur — la lecture
 basculerait en silence sur l'heuristique de repli, et une dégradation silencieuse est le mode
 d'échec le plus coûteux du dispositif.
 
+**Le repli lui-même** — un bloc trouvé *sans* délimiteurs — est lu, pour que le rapport reste utile,
+mais il ne sort **jamais** en `0` : le contenu peut être complet, la réponse ne respecte pas le
+contrat d'émission.
+
 ## Codes de sortie
 
 | Code | Sens |
 |---|---|
-| `0` | conforme |
-| `1` | non conforme — section manquante ou cohérence violée |
-| `2` | bloc absent ou illisible |
+| `0` | conforme — délimiteurs présents, schéma valide, aucune cohérence violée |
+| `1` | non conforme — violation de schéma, cohérence violée, section manquante, ou bloc extrait par repli |
+| `2` | inexploitable — bloc absent, JSON illisible ou qui n'est pas un objet, fichier introuvable |
+
+Le rapport imprimé se termine par une ligne `CONFORMITÉ`, qui lit la même fonction que le code de
+sortie : les deux ne peuvent pas se contredire.
 
 Un instrument qui rend toujours `0` est un rapport, pas un garde-fou : aucune chaîne d'intégration
 ne peut s'y brancher.
@@ -67,6 +90,9 @@ prochain chantier du projet — pas un détail à contourner.
 python -m pytest lab/tests/ -q
 ```
 
-Onze tests sur six fixtures : extraction, tolérance de l'ancien jeton, bloc absent, JSON invalide,
-cohérence violée, dégradation du score, codes de sortie, bout en bout par la ligne de commande, et
-reproductibilité du verdict. Un clone nu suffit à les faire tourner.
+26 tests sur 9 fixtures : extraction, tolérance de l'ancien jeton, bloc absent, JSON invalide,
+cohérence violée, dégradation du score, codes de sortie, bout en bout par la ligne de commande,
+reproductibilité du verdict — et, depuis la seconde revue externe, la **validité** : repli sans
+délimiteurs, axe hors plage, énumération inconnue, score global incohérent, section entière absente,
+comptes mal typés, concordance schéma ↔ template. Chacun de ces derniers cas sortait en `0` ou
+faisait planter l'instrument avant correction. Un clone nu suffit à les faire tourner.

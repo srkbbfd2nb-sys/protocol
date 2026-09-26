@@ -19,19 +19,36 @@ jobs:
       - name: Tests de l'instrument
         run: python -m pytest lab/tests/ -q
 
-      - name: Le vérificateur accepte un bloc conforme
-        run: python lab/audit_v8.py --input-file lab/fixtures/conforme.txt
-
-      - name: Le vérificateur refuse une cohérence violée
+      # Code de sortie EXACT, fixture par fixture. Tester seulement « non nul »
+      # laissait passer un refus pour la mauvaise raison — un chemin faux, par
+      # exemple, sortait en 1 comme une vraie non-conformité.
+      - name: Chaque fixture rend exactement le code attendu
         run: |
-          if python lab/audit_v8.py --input-file lab/fixtures/coherence-violee.txt; then
-            echo "ÉCHEC — une cohérence violée a été acceptée"; exit 1
-          fi
+          echec=0
+          while read -r fixture attendu; do
+            python lab/audit_v8.py --input-file "lab/fixtures/$fixture" > /dev/null && code=0 || code=$?
+            if [ "$code" -ne "$attendu" ]; then
+              echo "ÉCHEC — $fixture : attendu $attendu, obtenu $code"; echec=1
+            else
+              echo "ok — $fixture → $code"
+            fi
+          done <<'LISTE'
+          conforme.txt 0
+          ancien-jeton.txt 0
+          coherence-violee.txt 1
+          sections-manquantes.txt 1
+          sans-delimiteurs.txt 1
+          axe-hors-plage.txt 1
+          enumeration-inconnue.txt 1
+          bloc-absent.txt 2
+          json-invalide.txt 2
+          LISTE
+          exit $echec
 
-      - name: Le vérificateur signale un bloc absent
+      - name: Aucune fixture n'est laissée hors de la liste
         run: |
-          python lab/audit_v8.py --input-file lab/fixtures/bloc-absent.txt || code=$?
-          if [ "${code:-0}" -ne 2 ]; then echo "ÉCHEC — code attendu 2, obtenu ${code:-0}"; exit 1; fi
+          n=$(ls lab/fixtures/*.txt | wc -l)
+          [ "$n" -eq 9 ] || { echo "ÉCHEC — $n fixtures, 9 listées : ajouter la nouvelle à l'étape précédente"; exit 1; }
 
   structure:
     runs-on: ubuntu-latest
@@ -58,3 +75,22 @@ jobs:
         run: |
           grep -q "===== LAB AUDIT JSON =====" protocole/actif/emission_audit_v8.md
           grep -q "LAB|TJ" lab/audit/v8/json_extractor.py
+
+      # La concordance schéma ↔ template (énumération par énumération) est
+      # couverte par lab/tests, qui tourne dans le job « instrument ».
+      - name: L'instrument n'importe que la bibliothèque standard
+        run: |
+          python3 - <<'PY'
+          import ast, pathlib, sys
+          autorises = set(sys.stdlib_module_names) | {"audit"}
+          fautes = []
+          for f in pathlib.Path("lab").rglob("*.py"):
+              if "tests" in f.parts:
+                  continue
+              for n in ast.walk(ast.parse(f.read_text(encoding="utf-8"))):
+                  noms = [a.name for a in n.names] if isinstance(n, ast.Import) else \
+                         [n.module] if isinstance(n, ast.ImportFrom) and n.module and n.level == 0 else []
+                  fautes += [f"{f}: {m}" for m in noms if m.split(".")[0] not in autorises]
+          print("\n".join(fautes) or "bibliothèque standard seule")
+          sys.exit(1 if fautes else 0)
+          PY
